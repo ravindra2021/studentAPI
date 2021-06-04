@@ -16,17 +16,17 @@ public class StudentService {
 public List<Student> getStudents(){
 	return studentRepository.findAll();
 }
-public Optional<Student> getStudent(String name){
-	Optional<Student> studentByName= studentRepository.findStudentByName(name); 
+public Optional<Student> getStudent(String username){
+	Optional<Student> studentByUserName= studentRepository.findStudentByUsername(username); 
 	
-	return studentByName;	
+	return studentByUserName;	
 
 }
 
 public void addNewStudent(Student student) {
-	Optional<Student> studentByEmail= studentRepository.findStudentByEmail(student.getEmail()); 
-	if(studentByEmail.isPresent()) {
-		throw new IllegalStateException("email is taken, please try using another email");
+	Optional<Student> studentByUsername= studentRepository.findStudentByUsername(student.getUsername()); 
+	if(studentByUsername.isPresent()) {
+		throw new IllegalStateException("username already exists, please try using another username");
 	}
 	else studentRepository.save(student);
 
@@ -48,6 +48,30 @@ public String deleteStudent(Long id) {
 		studentRepository.deleteById(id);
 		return "deleted succesfully";}
     
+	
+}
+public String verifyLogin(Student student) {
+	try {
+		
+	Optional<Student> studentByUsername= studentRepository.findStudentByUsername(student.getUsername()); 
+	Student stu=studentByUsername.get();
+	
+		if(student.getPassword().equals(stu.getPassword())) {
+		return "Login successfull";
+		}
+		else {
+			throw new IllegalStateException("invalid password! please try again");		
+	}	
+	}
+	catch(IllegalStateException exp){
+		throw exp;
+         }
+	
+	catch(Exception exp){
+		throw new IllegalStateException("username does not exist, please try again with valid credentials");
+         }
+	
+	
 	
 }
 }

@@ -6,17 +6,19 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@CrossOrigin(origins="*")
 public class StudentController {
 	
 	@Autowired
@@ -27,15 +29,18 @@ public class StudentController {
 		return studentService.getStudents();
 	}
 	
-	@GetMapping(path ="/student")
-	public Optional<Student> getAllStudents(@RequestParam String name) {
-		return studentService.getStudent(name);
+	@GetMapping(path ="/student/{username}")
+	public Optional<Student> getAllStudents(@PathVariable String username) {
+		return studentService.getStudent(username);
 	}
 	//post new student
 	@PostMapping(path = "/addstudent")
 	public void registerNewStudent(@RequestBody Student student) {
 		 studentService.addNewStudent(student);
 	}
+	
+	
+	
 	//update student
 	@PutMapping(path ="/updatestudent")
 	public void updateStudent(@RequestBody Student student) {
@@ -48,4 +53,13 @@ public class StudentController {
 		
 		return studentService.deleteStudent(id);
 	}
+	
+	//end point to check for user authentication (check username,password pair)
+	@PostMapping(path = "/authentication")
+	public String verifyLogin(@RequestBody Student student) {
+		return  studentService.verifyLogin(student);
+	}
+	
+	
+	
 }

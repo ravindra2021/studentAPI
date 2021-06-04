@@ -1,81 +1,136 @@
 package com.studentproject.student.demo;
 
-import java.time.LocalDate;
-import java.time.Period;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+
 
 @Entity
 public class Student {
+	
+
+
+
+
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private String name;
-	private String email;
-	private LocalDate dob;
-	@Transient
-	private int age;
+	private String username;
+	private String firstname;
+	private String lastname;
+	private String email; 
+	private String password;
+	
+	
+	
 	
 	public Student() {}
-		
-	public Student(long id, String name, String email, LocalDate dob) {
+
+	public Student(String username, String firstname, String lastname, String email, String password) {
 		super();
-		this.id = id;
-		this.name = name;
+		this.username = username;
+		this.firstname = firstname;
+		this.lastname = lastname;
 		this.email = email;
-		this.dob = dob;
-		
+		this.password = password;
 	}
-	
-	public Student(String name, String email, LocalDate dob) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.dob = dob;
-	
-	}
+
 
 
 
 	public long getId() {
 		return id;
 	}
+
+
+
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+
+
+
+
+	public String getUsername() {
+		return username;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+
+
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
+
+
+
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+
+
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+
+
+
+	public String getLastname() {
+		return lastname;
+	}
+
+
+
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+
+
+
 	public String getEmail() {
 		return email;
 	}
+
+
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public LocalDate getDob() {
-		return dob;
+
+
+
+
+	public String getPassword() {
+		return password;
 	}
-	public void setDob(LocalDate dob) {
-		this.dob = dob;
+
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public int getAge() {
-		return Period.between(this.dob,LocalDate.now()).getYears();
-	}
-	
-//	public void setAge(int age) {
-//		this.age = age;
-//	}
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", email=" + email + ", dob=" + dob + "]";
+		return "Student [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
+				+ ", email=" + email + ", password=" + password + "]";
 	}
+		
+	
 
 }

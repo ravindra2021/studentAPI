@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StudentRepository 
 	   extends JpaRepository<Student,Long> {
-    Optional<Student> findStudentByName(String name);
+    Optional<Student> findStudentByUsername(String username);
 	Optional<Student> findStudentByEmail(String email);
 }
